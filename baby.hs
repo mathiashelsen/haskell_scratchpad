@@ -20,3 +20,7 @@ factorial x = product [1..x]
 factorial' x = 
     if x == 0 then 1
     else x*factorial'(x-1)
+
+factorial'' :: Int -> Int
+factorial'' 1 = 1
+factorial'' x = x*factorial''(x-1)
