@@ -103,3 +103,6 @@ myReverse (x:xs) = myReverse(xs) ++ [x]
 
 palindrome :: (Eq a) => [a] -> Bool
 palindrome xs = xs == myReverse xs
+
+applyTwice :: (a -> a) -> a -> a
+applyTwice f x = f( f x )
