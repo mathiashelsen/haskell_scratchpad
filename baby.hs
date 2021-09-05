@@ -106,3 +106,18 @@ palindrome xs = xs == myReverse xs
 
 applyTwice :: (a -> a) -> a -> a
 applyTwice f x = f( f x )
+
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' _ [] _ = []
+zipWith' _ _ [] = []
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
+
+myMap :: (a -> b) -> [a] -> [b]
+myMap _ [] = []
+myMap f (x:xs) = f(x) : myMap f xs
+
+myFilter :: (a -> Bool) -> [a] -> [a]
+myFilter p [] = []
+myFilter p (x:xs)
+    | p x = x : myFilter p xs
+    | otherwise = myFilter p xs
