@@ -145,5 +145,17 @@ group' [] = []
 group' (x:xs) = (x : takeWhile (==x) xs) : group' (dropWhile (==x) xs)
 
 span' :: (a -> Bool) -> [a] -> ([a], [a])
-span' [] = []
-span' f (x:xs) = (x : 
+span' _ [] = ([], [])
+span' f xs = (xfirst, xsecond)
+    where   xfirst = takeWhile f xs
+            xsecond = dropWhile f xs
+
+encode :: (Eq a) => [a] -> [(Int, a)]
+encode = map (\x -> (length x, head x)) . group'
+
+glue :: [[a]] -> [a]
+glue [] = []
+glue (x:xs) = x ++ glue xs
+
+decode :: [(Int, a)] -> [a]
+decode xs = glue [ (replicate n x) | (n, x) <- xs]
