@@ -121,3 +121,21 @@ myFilter p [] = []
 myFilter p (x:xs)
     | p x = x : myFilter p xs
     | otherwise = myFilter p xs
+
+sum' :: (Num a) => [a] -> a
+sum' xs = foldl (\acc x -> acc + x) 0 xs
+
+sum'' ::(Num a) => [a] -> a  
+sum'' = foldl (+) 0
+
+myReverse' :: [a] -> [a]
+myReverse' = foldl (flip( : )) []
+
+sumSqrt :: [Float] -> [Float]
+sumSqrt xs = scanl (\acc x -> acc + sqrt(x)) 0 xs
+
+-- compress :: (Eq a) => [a] -> [a]
+-- compress xs = foldl (\acc x -> if x `elem` acc then acc else x:acc ) [] xs
+
+compress :: (Eq a) => [a] -> [a]
+compress (x:xs) = reverse $ foldl(\acc y -> if head acc == y then acc else y:acc) [x] xs
