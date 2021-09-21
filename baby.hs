@@ -139,3 +139,11 @@ sumSqrt xs = scanl (\acc x -> acc + sqrt(x)) 0 xs
 
 compress :: (Eq a) => [a] -> [a]
 compress (x:xs) = reverse $ foldl(\acc y -> if head acc == y then acc else y:acc) [x] xs
+
+group' :: (Eq a) => [a] -> [[a]]
+group' [] = []
+group' (x:xs) = (x : takeWhile (==x) xs) : group' (dropWhile (==x) xs)
+
+span' :: (a -> Bool) -> [a] -> ([a], [a])
+span' [] = []
+span' f (x:xs) = (x : 
