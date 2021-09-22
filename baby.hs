@@ -159,3 +159,29 @@ glue (x:xs) = x ++ glue xs
 
 decode :: [(Int, a)] -> [a]
 decode xs = glue [ (replicate n x) | (n, x) <- xs]
+
+dropWhile' :: (a -> Bool) -> [a] -> [a]
+dropWhile' _ [] = []
+dropWhile' f all@(x:xs) = if f x then dropWhile' f xs else all
+
+dupli :: [a] -> [a]
+dupli [] = []
+dupli (x:xs) = x : x : dupli xs
+
+repli :: [a] -> Int -> [a]
+repli [] _ = []
+repli (x:xs) n = (replicate n x) ++ repli xs n
+
+dropEvery :: Int -> [a] -> [a]
+dropEvery _ [] = []
+dropEvery n xs = (take (n-1) xs) ++ dropEvery n ( drop n xs )
+
+dropEvery' :: Int -> [a] -> [a]
+dropEvery' n xs =  map fst $ filter (\(x, i) -> i `mod` n /= 0) $ zip xs [1..]
+
+split :: [a] -> Int -> ([a], [a])
+split [] _ = ([], [])
+split all@(x:xs) n
+    | n > 0 = (x : ys, zs)
+    | otherwise = ([], all)
+    where (ys, zs) = split xs (n-1)
