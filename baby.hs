@@ -192,3 +192,13 @@ slice all@(x:xs) l u
     | l == 1 && u == 0 = []
     | l > 1 = slice xs (l-1) (u-1)
     | u > 0 = x : slice xs l (u-1)
+
+rotate :: [a] -> Int -> [a]
+rotate all@(x:xs) n
+    | n < 0 = rotate all (n + 1 + length xs)
+    | n > 0 = rotate (xs ++ [x]) (n-1)
+    | otherwise = all
+
+removeAt :: Int -> [a] -> (a, [a])
+removeAt n xs = (xs !! (n-1), remList)
+    where remList = map fst ( filter (\(x, i) -> i /= n) (zip xs [1..])) 
