@@ -185,3 +185,10 @@ split all@(x:xs) n
     | n > 0 = (x : ys, zs)
     | otherwise = ([], all)
     where (ys, zs) = split xs (n-1)
+
+slice :: [a] -> Int -> Int -> [a]
+slice [] _ _ = []
+slice all@(x:xs) l u
+    | l == 1 && u == 0 = []
+    | l > 1 = slice xs (l-1) (u-1)
+    | u > 0 = x : slice xs l (u-1)
