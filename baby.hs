@@ -202,3 +202,9 @@ rotate all@(x:xs) n
 removeAt :: Int -> [a] -> (a, [a])
 removeAt n xs = (xs !! (n-1), remList)
     where remList = map fst ( filter (\(x, i) -> i /= n) (zip xs [1..])) 
+
+eratosthenes :: [Int] -> [Int]
+eratosthenes (p:xs) = p : (eratosthenes . (filter (\x -> x `mod` p /= 0)) $ xs)
+
+primeList :: Int -> [Int]
+primeList n = take n $ eratosthenes [2..]
