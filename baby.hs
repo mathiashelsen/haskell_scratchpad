@@ -208,3 +208,16 @@ eratosthenes (p:xs) = p : (eratosthenes . (filter (\x -> x `mod` p /= 0)) $ xs)
 
 primeList :: Int -> [Int]
 primeList n = take n $ eratosthenes [2..]
+
+-- This double iteration over a loop can be replaced by a single
+-- (x:xs) -> (x:ys, zs)
+-- where (ys, zs = splitAt' t xs)
+-- or something along these lines ey
+
+splitAt' :: (Eq a) => a -> [a] -> ([a], [a])
+splitAt' t xs = (takeWhile (/=t) xs, drop 1 $ dropWhile(/=t) xs)
+
+strtok :: (Eq a) => a -> [a] -> [[a]]
+strtok _ [] = [[]]
+strtok t msg = [fst splitMsg] ++ ((strtok t) . snd $ splitMsg)
+    where splitMsg = splitAt' t msg
